@@ -87,7 +87,7 @@ namespace BarcodeScanner.Mobile.Renderer
                 return;
 
             // Used to bind the lifecycle of cameras to the lifecycle owner
-            if (!(_cameraFuture.Get() is ProcessCameraProvider cameraProvider))
+            if (_cameraFuture?.Get() is not ProcessCameraProvider cameraProvider)
                 return;
 
             // Preview
@@ -232,7 +232,7 @@ namespace BarcodeScanner.Mobile.Renderer
             try
             {
                 // Used to bind the lifecycle of cameras to the lifecycle owner
-                if (!(_cameraFuture.Get() is ProcessCameraProvider cameraProvider))
+                if (_cameraFuture?.Get() is not ProcessCameraProvider cameraProvider)
                     return;
 
                 cameraProvider.UnbindAll();
