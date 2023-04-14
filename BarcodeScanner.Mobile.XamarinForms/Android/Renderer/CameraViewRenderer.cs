@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.ComponentModel;
 using System.IO;
 using System.Threading.Tasks;
@@ -38,6 +38,8 @@ namespace BarcodeScanner.Mobile.Renderer
         private IExecutorService _cameraExecutor;
 
         private ICamera _camera;
+
+        PreviewView _previewView;
 
         public static void Init() { }
 
@@ -79,7 +81,11 @@ namespace BarcodeScanner.Mobile.Renderer
             }
         }
 
-        protected override PreviewView CreateNativeControl() => new PreviewView(Context);
+        protected override PreviewView CreateNativeControl()
+        {
+            _previewView = new PreviewView(Context);
+            return _previewView;
+        }
 
         private void CameraCallback()
         {
@@ -93,7 +99,7 @@ namespace BarcodeScanner.Mobile.Renderer
             // Preview
             var previewBuilder = new Preview.Builder();
             var preview = previewBuilder.Build();
-            preview.SetSurfaceProvider(Control.SurfaceProvider);
+            preview.SetSurfaceProvider(_previewView.SurfaceProvider);
 
             // Frame by frame analyze
             var imageAnalyzerBuilder = new ImageAnalysis.Builder();
